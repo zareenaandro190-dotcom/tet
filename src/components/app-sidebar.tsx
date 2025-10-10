@@ -1,0 +1,116 @@
+'use client'
+
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { Home, BookMarked, TrendingUp, Calendar, User, Settings, LogOut, PanelLeft } from 'lucide-react';
+
+import {
+  SidebarHeader,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
+  SidebarSeparator,
+  useSidebar,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
+import { AppLogo } from '@/components/app-logo';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+const menuItems = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/subjects', label: 'Subjects', icon: BookMarked },
+  { href: '/progress', label: 'My Progress', icon: TrendingUp },
+  { href: '/schedule', label: 'Schedule', icon: Calendar },
+];
+
+export function AppSidebar() {
+    const pathname = usePathname();
+    const { state, setOpenMobile } = useSidebar();
+    const isCollapsed = state === 'collapsed';
+
+    const handleLinkClick = () => {
+        setOpenMobile(false);
+    }
+
+  return (
+    <>
+      <SidebarHeader>
+        <div className="flex items-center gap-2">
+            <AppLogo className="size-8 shrink-0"/>
+            <span className="text-lg font-semibold font-headline group-data-[collapsible=icon]:hidden">
+                TET Master
+            </span>
+            <div className="flex-1" />
+            <SidebarTrigger className="hidden md:flex" />
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent className="p-2">
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <Link href={item.href} onClick={handleLinkClick}>
+                <SidebarMenuButton
+                  isActive={pathname === item.href}
+                  tooltip={item.label}
+                >
+                  <item.icon />
+                  <span>{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+
+      <SidebarFooter className="p-2">
+        <SidebarSeparator />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className={
+                `w-full justify-start items-center gap-2 p-2 ${isCollapsed ? 'justify-center' : ''}`
+            }>
+                <Avatar className="size-8">
+                    <AvatarImage src="https://picsum.photos/seed/avatar/100/100" />
+                    <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col items-start group-data-[collapsible=icon]:hidden">
+                    <span className="font-medium text-sm">User</span>
+                    <span className="text-xs text-muted-foreground">user@example.com</span>
+                </div>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 mb-2" side="top" align={isCollapsed ? "center" : "end"}>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarFooter>
+    </>
+  );
+}

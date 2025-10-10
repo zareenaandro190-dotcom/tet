@@ -1,3 +1,22 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "practice-start",
+      "description": "A person studying at a desk with a laptop and books",
+      "imageUrl": "https://picsum.photos/seed/101/600/400",
+      "imageHint": "study desk"
+    },
+    {
+      "id": "subjects-list",
+      "description": "A stack of colorful hardcover books",
+      "imageUrl": "https://picsum.photos/seed/102/600/400",
+      "imageHint": "books stack"
+    },
+    {
+      "id": "progress-tracking",
+      "description": "A line graph showing an upward trend on a screen",
+      "imageUrl": "https://picsum.photos/seed/103/600/400",
+      "imageHint": "growth chart"
+    }
+  ]
 }
