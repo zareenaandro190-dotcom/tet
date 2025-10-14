@@ -40,6 +40,8 @@ export type UserAnswer = {
 };
 
 export type QuizResult = {
+  id: string;
+  timestamp: number;
   subject: string;
   lesson: string;
   mcqs: MCQ[];

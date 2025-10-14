@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import { ArrowLeft, Check, Clock, Home, Percent, Repeat, X } from 'lucide-react';
-import type { QuizResult, UserAnswer } from '@/lib/types';
+import type { QuizResult } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -19,7 +19,12 @@ export default function QuizResults() {
   useEffect(() => {
     const savedResults = localStorage.getItem('quizResults');
     if (savedResults) {
-      setResults(JSON.parse(savedResults));
+      const parsedResults = JSON.parse(savedResults);
+      // Ensure timestamp exists for older results
+      if (!parsedResults.timestamp) {
+        parsedResults.timestamp = Date.now();
+      }
+      setResults(parsedResults);
     } else {
       router.replace('/');
     }
@@ -45,6 +50,9 @@ export default function QuizResults() {
     const remainingSeconds = seconds % 60;
     return `${minutes}m ${remainingSeconds}s`;
   };
+
+  const getSubjectId = (subjectName: string) => subjectName.toLowerCase().replace(/\s+/g, '-');
+  const getLessonId = (lessonName: string) => lessonName.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
@@ -146,7 +154,7 @@ export default function QuizResults() {
           </div>
           
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href={`/quiz?subject=${results.subject.toLowerCase().replace(/\s+/g, '-')}&lesson=${results.lesson.toLowerCase().replace(/\s+/g, '-')}`}>
+            <Link href={`/quiz?subject=${getSubjectId(results.subject)}&lesson=${getLessonId(results.lesson)}`}>
                 <Button variant="outline"><Repeat className="mr-2 h-4 w-4" /> Try Again</Button>
             </Link>
             <Link href="/subjects">

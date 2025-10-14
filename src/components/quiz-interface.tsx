@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle2, XCircle, ArrowRight, BrainCircuit, Lightbulb } from 'lucide-react';
-import type { Quiz, UserAnswer } from '@/lib/types';
+import type { Quiz, UserAnswer, QuizResult } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { explainAnswer } from '@/ai/flows/explain-answer';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from './ui/skeleton';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 type QuizInterfaceProps = {
   quiz: Quiz;
@@ -25,6 +26,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  const [quizHistory, setQuizHistory] = useLocalStorage<QuizResult[]>('quizHistory', []);
 
   const [detailedExplanation, setDetailedExplanation] = useState<string | null>(null);
   const [isExplanationLoading, setIsExplanationLoading] = useState(false);
@@ -85,7 +87,9 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
       const correctAnswers = userAnswers.filter((answer) => answer.isCorrect).length;
       const score = Math.round((correctAnswers / quiz.mcqs.length) * 100);
 
-      const results = {
+      const results: QuizResult = {
+        id: `${quiz.subject}-${quiz.lesson}-${Date.now()}`,
+        timestamp: Date.now(),
         subject: quiz.subject,
         lesson: quiz.lesson,
         mcqs: quiz.mcqs,
@@ -95,6 +99,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
         timeSpent,
       };
 
+      setQuizHistory([results, ...quizHistory]);
       localStorage.setItem('quizResults', JSON.stringify(results));
       router.push('/quiz/results');
     }
@@ -119,19 +124,20 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
             let buttonClass = '';
             if (showFeedback) {
               if (isCorrectAnswer) {
-                buttonClass = 'bg-green-600 hover:bg-green-700 text-white';
+                buttonClass = 'bg-green-600 hover:bg-green-700 text-white border-green-600';
               } else if (isSelected) {
-                buttonClass = 'bg-red-600 hover:bg-red-700 text-white';
+                buttonClass = 'bg-red-600 hover:bg-red-700 text-white border-red-600';
               }
             }
 
             return (
               <Button
                 key={index}
-                variant="secondary"
+                variant="outline"
                 className={cn(
                   'w-full justify-start h-auto py-3 text-left whitespace-normal',
                   showFeedback && 'cursor-not-allowed',
+                  isSelected && 'border-2',
                   buttonClass
                 )}
                 onClick={() => handleOptionSelect(option)}
