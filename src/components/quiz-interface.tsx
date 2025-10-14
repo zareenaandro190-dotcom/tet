@@ -35,8 +35,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
 
   const currentQuestion = quiz.mcqs[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / quiz.mcqs.length) * 100;
-  const isCorrect = selectedOption === currentQuestion.correct_answer;
-
+  
   const handleOptionSelect = (option: string) => {
     if (showFeedback) return;
 
@@ -100,6 +99,8 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
       router.push('/quiz/results');
     }
   };
+  
+  const isCorrect = selectedOption === currentQuestion.correct_answer;
 
   return (
     <Card className="max-w-4xl mx-auto">
@@ -113,26 +114,25 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
         <div className="space-y-3">
           {currentQuestion.options.map((option, index) => {
             const isSelected = selectedOption === option;
-            let buttonVariant: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' = 'secondary';
+            const isCorrectAnswer = option === currentQuestion.correct_answer;
+
+            let buttonClass = '';
             if (showFeedback) {
-              if (option === currentQuestion.correct_answer) {
-                buttonVariant = 'default';
+              if (isCorrectAnswer) {
+                buttonClass = 'bg-green-600 hover:bg-green-700 text-white';
               } else if (isSelected) {
-                buttonVariant = 'destructive';
+                buttonClass = 'bg-red-600 hover:bg-red-700 text-white';
               }
-            } else if (isSelected) {
-                buttonVariant = 'outline';
             }
 
             return (
               <Button
                 key={index}
-                variant={buttonVariant}
+                variant="secondary"
                 className={cn(
                   'w-full justify-start h-auto py-3 text-left whitespace-normal',
                   showFeedback && 'cursor-not-allowed',
-                  showFeedback && isSelected && option === currentQuestion.correct_answer && 'bg-green-600 hover:bg-green-700',
-                  showFeedback && isSelected && option !== currentQuestion.correct_answer && 'bg-red-600 hover:bg-red-700'
+                  buttonClass
                 )}
                 onClick={() => handleOptionSelect(option)}
                 disabled={showFeedback}
@@ -148,6 +148,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
             {isCorrect ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
             <AlertTitle>{isCorrect ? 'Correct!' : 'Incorrect'}</AlertTitle>
             <AlertDescription>
+                {!isCorrect && <p className="mb-2 font-semibold">The correct answer is: {currentQuestion.correct_answer}</p>}
                 <p className="mb-2">{currentQuestion.explanation}</p>
                 
                 {!detailedExplanation && !isExplanationLoading && (
