@@ -3,7 +3,7 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Home, BookMarked, TrendingUp, Calendar, User, Settings, LogOut, PanelLeft } from 'lucide-react';
+import { Home, BookCopy, TrendingUp, Calendar, User, Settings, LogOut } from 'lucide-react';
 
 import {
   SidebarHeader,
@@ -30,7 +30,7 @@ import {
 
 const menuItems = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/subjects', label: 'Subjects', icon: BookMarked },
+  { href: '/subjects', label: 'Subjects', icon: BookCopy },
   { href: '/progress', label: 'My Progress', icon: TrendingUp },
   { href: '/schedule', label: 'Schedule', icon: Calendar },
 ];
@@ -48,7 +48,7 @@ export function AppSidebar() {
     <>
       <SidebarHeader>
         <div className="flex items-center gap-2">
-            <AppLogo className="size-8 shrink-0"/>
+            <AppLogo className="size-8 shrink-0 text-primary"/>
             <span className="text-lg font-semibold font-headline group-data-[collapsible=icon]:hidden">
                 TET Master
             </span>
@@ -63,8 +63,9 @@ export function AppSidebar() {
             <SidebarMenuItem key={item.href}>
               <Link href={item.href} onClick={handleLinkClick}>
                 <SidebarMenuButton
-                  isActive={pathname === item.href}
+                  isActive={pathname.startsWith(item.href) && (item.href === '/' ? pathname === '/' : true)}
                   tooltip={item.label}
+                  className="[&[data-active=true]]:bg-primary/20 [&[data-active=true]]:text-primary"
                 >
                   <item.icon />
                   <span>{item.label}</span>

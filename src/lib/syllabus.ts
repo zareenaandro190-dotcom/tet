@@ -1,19 +1,7 @@
-import type { Subject } from './types';
-import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit } from 'lucide-react';
+import type { Subject, Paper } from './types';
+import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap } from 'lucide-react';
 
 export const subjects: Subject[] = [
-  {
-    id: 'english',
-    name: 'English',
-    icon: Languages,
-    lessons: [
-      { id: 'parts-of-speech', name: 'Parts of Speech' },
-      { id: 'tenses', name: 'Tenses' },
-      { id: 'articles', name: 'Articles' },
-      { id: 'prepositions', name: 'Prepositions' },
-      { id: 'comprehension', name: 'Reading Comprehension' },
-    ],
-  },
   {
     id: 'telugu',
     name: 'Telugu',
@@ -27,6 +15,18 @@ export const subjects: Subject[] = [
     ],
   },
   {
+    id: 'english',
+    name: 'English',
+    icon: Languages,
+    lessons: [
+      { id: 'parts-of-speech', name: 'Parts of Speech' },
+      { id: 'tenses', name: 'Tenses' },
+      { id: 'articles', name: 'Articles' },
+      { id: 'prepositions', name: 'Prepositions' },
+      { id: 'comprehension', name: 'Reading Comprehension' },
+    ],
+  },
+  {
     id: 'mathematics',
     name: 'Mathematics',
     icon: Calculator,
@@ -37,6 +37,18 @@ export const subjects: Subject[] = [
       { id: 'algebra', name: 'Algebra' },
       { id: 'mensuration', name: 'Mensuration' },
     ],
+  },
+  {
+    id: 'environmental-studies',
+    name: 'EVS',
+    icon: FlaskConical,
+    lessons: [
+        { id: 'living-world', name: 'Living World' },
+        { id: 'our-body', name: 'Our Body' },
+        { id: 'plants-and-animals', name: 'Plants and Animals' },
+        { id: 'food-and-health', name: 'Food and Health' },
+        { id: 'water-and-air', name: 'Water and Air' },
+    ]
   },
   {
     id: 'science',
@@ -63,7 +75,7 @@ export const subjects: Subject[] = [
     ],
   },
   {
-    id: 'pedagogy',
+    id: 'child-development-pedagogy',
     name: 'Pedagogy',
     icon: BrainCircuit,
     lessons: [
@@ -75,3 +87,28 @@ export const subjects: Subject[] = [
     ],
   },
 ];
+
+export const papers: Paper[] = [
+    {
+        id: 'paper-1',
+        name: 'Paper 1 (Classes I-V)',
+        description: 'Focuses on foundational concepts for primary school teachers.',
+        classes: [
+            { id: 'class-1', name: 'Class 1' },
+            { id: 'class-2', name: 'Class 2' },
+            { id: 'class-3', name: 'Class 3' },
+            { id: 'class-4', name: 'Class 4' },
+            { id: 'class-5', name: 'Class 5' },
+        ]
+    },
+    {
+        id: 'paper-2',
+        name: 'Paper 2 (Classes VI-VIII)',
+        description: 'Covers advanced topics for upper primary and high school teachers.',
+        classes: [
+            { id: 'class-6', name: 'Class 6' },
+            { id: 'class-7', name: 'Class 7' },
+            { id: 'class-8', name: 'Class 8' },
+        ]
+    }
+]

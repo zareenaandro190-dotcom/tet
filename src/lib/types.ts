@@ -1,6 +1,18 @@
 import { type GenerateMCQQuizzesOutput } from '@/ai/flows/generate-mcq-quizzes';
 import { type LucideIcon } from 'lucide-react';
 
+export type Paper = {
+  id: string;
+  name: string;
+  description: string;
+  classes: Class[];
+}
+
+export type Class = {
+  id: string;
+  name: string;
+}
+
 export type Subject = {
   id: string;
   name: string;
