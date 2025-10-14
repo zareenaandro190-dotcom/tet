@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation';
 import { papers } from '@/lib/syllabus';
 import { Card, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronLeft, Book, GraduationCap } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 type ClassesPageProps = {
     searchParams: {
@@ -22,6 +22,11 @@ export default function ClassesPage({ searchParams }: ClassesPageProps) {
     if (!paper) {
         notFound();
     }
+    
+    // If paper has no classes, redirect to subjects page directly
+    if (!paper.classes || paper.classes.length === 0) {
+        redirect(`/subjects?paper=${paper.id}`);
+    }
 
     return (
         <div className="p-4 sm:p-6 md:p-8">
@@ -34,7 +39,7 @@ export default function ClassesPage({ searchParams }: ClassesPageProps) {
                         </Button>
                     </Link>
                     <div className="flex items-center gap-3">
-                        {paper.id === 'paper-1' ? <Book className="h-8 w-8 text-secondary" /> : <GraduationCap className="h-8 w-8 text-secondary" />}
+                        <paper.icon className="h-8 w-8 text-secondary" />
                         <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary">{paper.name}</h1>
                     </div>
                 </div>

@@ -50,7 +50,7 @@ export function AppSidebar() {
         <div className="flex items-center gap-2">
             <AppLogo className="size-8 shrink-0 text-primary"/>
             <span className="text-lg font-semibold font-headline group-data-[collapsible=icon]:hidden">
-                TET Master
+                TET & DSC Master
             </span>
             <div className="flex-1" />
             <SidebarTrigger className="hidden md:flex" />

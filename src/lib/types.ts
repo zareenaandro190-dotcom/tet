@@ -5,7 +5,9 @@ export type Paper = {
   id: string;
   name: string;
   description: string;
+  icon: LucideIcon;
   classes: Class[];
+  subjects?: Subject[];
 }
 
 export type Class = {

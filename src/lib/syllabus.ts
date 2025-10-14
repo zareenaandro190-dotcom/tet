@@ -1,5 +1,5 @@
 import type { Subject, Paper } from './types';
-import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap } from 'lucide-react';
+import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap, Puzzle, Newspaper } from 'lucide-react';
 
 export const subjects: Subject[] = [
   {
@@ -86,6 +86,37 @@ export const subjects: Subject[] = [
       { id: 'teaching-methodologies', name: 'Teaching Methodologies' },
     ],
   },
+  {
+    id: 'gk-ca',
+    name: 'GK & Current Affairs',
+    icon: Newspaper,
+    lessons: [
+      { id: 'ts-ca', name: 'Telangana Current Affairs' },
+      { id: 'india-ca', name: 'India Current Affairs' },
+      { id: 'world-ca', name: 'World Current Affairs' },
+      { id: 'static-gk', name: 'Static GK' },
+    ],
+  },
+  {
+    id: 'methodology-ded',
+    name: 'Methodology (D.Ed)',
+    icon: Puzzle,
+    lessons: [
+        { id: 'ded-psychology', name: 'Educational Psychology (D.Ed)' },
+        { id: 'ded-strategies', name: 'Teaching Strategies (D.Ed)' },
+        { id: 'ded-classroom', name: 'Classroom Management (D.Ed)' },
+    ],
+  },
+  {
+    id: 'methodology-bed',
+    name: 'Methodology (B.Ed)',
+    icon: Puzzle,
+    lessons: [
+        { id: 'bed-psychology', name: 'Educational Psychology (B.Ed)' },
+        { id: 'bed-strategies', name: 'Teaching Strategies (B.Ed)' },
+        { id: 'bed-classroom', name: 'Classroom Management (B.Ed)' },
+    ],
+  },
 ];
 
 export const papers: Paper[] = [
@@ -93,6 +124,7 @@ export const papers: Paper[] = [
         id: 'paper-1',
         name: 'Paper 1 (Classes I-V)',
         description: 'Focuses on foundational concepts for primary school teachers.',
+        icon: Book,
         classes: [
             { id: 'class-1', name: 'Class 1' },
             { id: 'class-2', name: 'Class 2' },
@@ -105,10 +137,35 @@ export const papers: Paper[] = [
         id: 'paper-2',
         name: 'Paper 2 (Classes VI-VIII)',
         description: 'Covers advanced topics for upper primary and high school teachers.',
+        icon: GraduationCap,
         classes: [
             { id: 'class-6', name: 'Class 6' },
             { id: 'class-7', name: 'Class 7' },
             { id: 'class-8', name: 'Class 8' },
         ]
+    },
+    {
+        id: 'dsc',
+        name: 'DSC Practice',
+        description: 'Practice question sets for the DSC exam.',
+        icon: Puzzle,
+        classes: [],
+        subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies'].includes(s.id))
+    },
+    {
+        id: 'gk-ca',
+        name: 'GK & Current Affairs',
+        description: 'Bilingual general knowledge and current events.',
+        icon: Newspaper,
+        classes: [],
+        subjects: subjects.filter(s => s.id === 'gk-ca')
+    },
+    {
+        id: 'methodology',
+        name: 'Methodology (D.Ed / B.Ed)',
+        description: 'Pedagogy questions for D.Ed and B.Ed patterns.',
+        icon: BrainCircuit,
+        classes: [],
+        subjects: subjects.filter(s => ['methodology-ded', 'methodology-bed'].includes(s.id))
     }
 ]
