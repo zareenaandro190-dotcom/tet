@@ -45,7 +45,7 @@ export default function EbooksPage() {
           <TabsTrigger value="andhra-pradesh">Andhra Pradesh</TabsTrigger>
         </TabsList>
         <TabsContent value="telangana" className="mt-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {telanganaBooks.map((book, index) => (
                     <Card key={index} className='flex flex-col'>
                         <CardHeader>
@@ -64,7 +64,7 @@ export default function EbooksPage() {
             </div>
         </TabsContent>
         <TabsContent value="andhra-pradesh" className="mt-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {andhraPradeshBooks.map((book, index) => (
                     <Card key={index} className='flex flex-col'>
                         <CardHeader>
