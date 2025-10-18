@@ -1,3 +1,7 @@
+
+'use client';
+
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BookOpen, Download, Search } from 'lucide-react';
@@ -16,9 +20,22 @@ const andhraPradeshBooks = [
     { title: 'Class IX - Mathematics', description: 'Official SCERT textbook for Class 9.', source: 'SCERT, Andhra Pradesh' },
     { title: 'B.Ed Assessment for Learning', description: 'Core textbook for B.Ed students.', source: 'AP Universities' },
     { title: 'Class VII - EVS', description: 'Environmental Studies textbook for Class 7.', source: 'SCERT, Andhra Pradesh' },
-]
+];
 
 export default function EbooksPage() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filterBooks = (books: typeof telanganaBooks) => {
+    if (!searchTerm) return books;
+    return books.filter(book => 
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredTelanganaBooks = filterBooks(telanganaBooks);
+  const filteredAndhraPradeshBooks = filterBooks(andhraPradeshBooks);
+
   return (
     <div className="p-4 sm:p-6 md:p-8">
       <header className="mb-8">
@@ -35,6 +52,8 @@ export default function EbooksPage() {
             <Input
               placeholder="Search for an eBook by title or subject..."
               className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
@@ -46,7 +65,7 @@ export default function EbooksPage() {
         </TabsList>
         <TabsContent value="telangana" className="mt-6">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {telanganaBooks.map((book, index) => (
+                {filteredTelanganaBooks.map((book, index) => (
                     <Card key={index} className='flex flex-col'>
                         <CardHeader>
                             <CardTitle>{book.title}</CardTitle>
@@ -62,10 +81,15 @@ export default function EbooksPage() {
                     </Card>
                 ))}
             </div>
+             {filteredTelanganaBooks.length === 0 && (
+              <div className="text-center py-12 text-muted-foreground">
+                <p>No eBooks found matching your search.</p>
+              </div>
+            )}
         </TabsContent>
         <TabsContent value="andhra-pradesh" className="mt-6">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {andhraPradeshBooks.map((book, index) => (
+                {filteredAndhraPradeshBooks.map((book, index) => (
                     <Card key={index} className='flex flex-col'>
                         <CardHeader>
                             <CardTitle>{book.title}</CardTitle>
@@ -81,6 +105,11 @@ export default function EbooksPage() {
                     </Card>
                 ))}
             </div>
+             {filteredAndhraPradeshBooks.length === 0 && (
+              <div className="text-center py-12 text-muted-foreground">
+                <p>No eBooks found matching your search.</p>
+              </div>
+            )}
         </TabsContent>
       </Tabs>
     </div>
