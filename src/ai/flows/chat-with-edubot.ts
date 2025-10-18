@@ -34,8 +34,10 @@ const prompt = ai.definePrompt({
 
   Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.
 
+  {{#if history}}
   Here is the conversation history:
   {{{history}}}
+  {{/if}}
 
   Here is the user's latest question:
   "{{{question}}}"
