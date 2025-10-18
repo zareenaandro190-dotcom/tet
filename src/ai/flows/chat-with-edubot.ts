@@ -11,13 +11,13 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const ChatWithEduBotInputSchema = z.object({
+const ChatWithEduBotInputSchema = z.object({
   history: z.string().optional().describe('The chat history so far.'),
   question: z.string().describe('The user\'s latest question.'),
 });
 export type ChatWithEduBotInput = z.infer<typeof ChatWithEduBotInputSchema>;
 
-export const ChatWithEduBotOutputSchema = z.object({
+const ChatWithEduBotOutputSchema = z.object({
   reply: z.string().describe('The AI\'s response to the user\'s question.'),
 });
 export type ChatWithEduBotOutput = z.infer<typeof ChatWithEduBotOutputSchema>;
