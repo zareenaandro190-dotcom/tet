@@ -88,7 +88,7 @@ export const subjects: Subject[] = [
   },
   {
     id: 'gk-ca',
-    name: 'GK &amp; Current Affairs',
+    name: 'GK & Current Affairs',
     icon: Newspaper,
     lessons: [
       { id: 'ts-ca', name: 'Telangana Current Affairs' },
@@ -120,7 +120,6 @@ export const subjects: Subject[] = [
   },
 ];
 
-// This is kept for legacy compatibility but is largely replaced by the new home screen.
 export const papers: Paper[] = [
     {
         id: 'tet-paper-1',
@@ -152,11 +151,11 @@ export const papers: Paper[] = [
         description: 'Practice question sets for the DSC exam.',
         icon: Puzzle,
         classes: [],
-        subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies'].includes(s.id))
+        subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies', 'child-development-pedagogy', 'gk-ca', 'methodology-ded', 'methodology-bed'].includes(s.id))
     },
     {
         id: 'gk-ca',
-        name: 'GK &amp; Current Affairs',
+        name: 'GK & Current Affairs',
         description: 'Bilingual general knowledge and current events.',
         icon: Newspaper,
         classes: [],
@@ -176,19 +175,22 @@ export const papers: Paper[] = [
         description: 'Diploma in Elementary Education Common Entrance Test.',
         icon: Book,
         classes: [],
+         subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies', 'child-development-pedagogy'].includes(s.id))
     },
     {
-        id: 'ebooks',
-        name: 'E-Books',
-        description: 'Library of textbooks and resources.',
-        icon: BookOpen,
-        classes: [],
+      id: 'sgt',
+      name: 'SGT',
+      description: 'Secondary Grade Teacher exam prep.',
+      icon: Book,
+      classes: [],
+      subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies', 'child-development-pedagogy', 'gk-ca'].includes(s.id))
     },
     {
-        id: 'chatbot',
-        name: 'AI Chatbot',
-        description: 'Your personal AI study assistant.',
-        icon: Bot,
-        classes: [],
+      id: 'sa',
+      name: 'SA',
+      description: 'School Assistant exam prep.',
+      icon: Book,
+      classes: [],
+      subjects: subjects.filter(s => ['telugu', 'english', 'mathematics', 'science', 'social-studies', 'child-development-pedagogy'].includes(s.id))
     }
 ]

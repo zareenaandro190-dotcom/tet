@@ -5,11 +5,12 @@ import { ArrowRight, BookOpen, GraduationCap, Target, Bot, Newspaper, Search, Br
 import { Input } from '@/components/ui/input';
 
 const quickLinks = [
-  { href: '/subjects?exam=tet', label: 'TET', icon: GraduationCap, description: 'Teacher Eligibility Test resources.' },
-  { href: '/subjects?exam=dsc', label: 'DSC', icon: Target, description: 'District Selection Committee materials.' },
-  { href: '/subjects?exam=deecet', label: 'DEECET', icon: BookOpen, description: 'Common Entrance Test resources.' },
-  { href: '/subjects?exam=sgt', label: 'SGT', icon: Briefcase, description: 'Secondary Grade Teacher exam prep.' },
-  { href: '/subjects?exam=sa', label: 'SA', icon: Briefcase, description: 'School Assistant exam prep.' },
+  { href: '/classes?paper=tet-paper-1', label: 'TET Paper 1', icon: GraduationCap, description: 'Classes I-V Test resources.' },
+  { href: '/classes?paper=tet-paper-2', label: 'TET Paper 2', icon: GraduationCap, description: 'Classes VI-VIII Test resources.' },
+  { href: '/subjects?paper=dsc', label: 'DSC', icon: Target, description: 'District Selection Committee materials.' },
+  { href: '/subjects?paper=deecet', label: 'DEECET', icon: BookOpen, description: 'Common Entrance Test resources.' },
+  { href: '/subjects?paper=sgt', label: 'SGT', icon: Briefcase, description: 'Secondary Grade Teacher exam prep.' },
+  { href: '/subjects?paper=sa', label: 'SA', icon: Briefcase, description: 'School Assistant exam prep.' },
   { href: '/ebooks', label: 'E-Books', icon: BookOpen, description: 'SCERT textbooks and D.Ed/B.Ed materials.' },
   { href: '/chatbot', label: 'AI Chat', icon: Bot, description: 'Ask "EduBot" to clarify concepts.' },
 ];
