@@ -5,14 +5,14 @@ import { ArrowRight, BookOpen, GraduationCap, Target, Bot, Newspaper, Search, Br
 import { Input } from '@/components/ui/input';
 
 const quickLinks = [
-  { href: '/classes?paper=tet-paper-1', label: 'TET Paper 1', icon: GraduationCap, description: 'Classes I-V Test resources.' },
-  { href: '/classes?paper=tet-paper-2', label: 'TET Paper 2', icon: GraduationCap, description: 'Classes VI-VIII Test resources.' },
-  { href: '/subjects?paper=dsc', label: 'DSC', icon: Target, description: 'District Selection Committee materials.' },
-  { href: '/subjects?paper=deecet', label: 'DEECET', icon: BookOpen, description: 'Common Entrance Test resources.' },
-  { href: '/subjects?paper=sgt', label: 'SGT', icon: Briefcase, description: 'Secondary Grade Teacher exam prep.' },
-  { href: '/subjects?paper=sa', label: 'SA', icon: Briefcase, description: 'School Assistant exam prep.' },
-  { href: '/ebooks', label: 'E-Books', icon: BookOpen, description: 'SCERT textbooks and D.Ed/B.Ed materials.' },
-  { href: '/chatbot', label: 'AI Chat', icon: Bot, description: 'Ask "EduBot" to clarify concepts.' },
+  { href: '/classes?paper=tet-paper-1', label: 'TET Paper 1', icon: GraduationCap, description: 'Classes I-V Test resources.', color: 'text-blue-500', bgColor: 'bg-blue-50' },
+  { href: '/classes?paper=tet-paper-2', label: 'TET Paper 2', icon: GraduationCap, description: 'Classes VI-VIII Test resources.', color: 'text-indigo-500', bgColor: 'bg-indigo-50' },
+  { href: '/subjects?paper=dsc', label: 'DSC', icon: Target, description: 'District Selection Committee materials.', color: 'text-red-500', bgColor: 'bg-red-50' },
+  { href: '/subjects?paper=deecet', label: 'DEECET', icon: BookOpen, description: 'Common Entrance Test resources.', color: 'text-green-500', bgColor: 'bg-green-50' },
+  { href: '/subjects?paper=sgt', label: 'SGT', icon: Briefcase, description: 'Secondary Grade Teacher exam prep.', color: 'text-purple-500', bgColor: 'bg-purple-50' },
+  { href: '/subjects?paper=sa', label: 'SA', icon: Briefcase, description: 'School Assistant exam prep.', color: 'text-pink-500', bgColor: 'bg-pink-50' },
+  { href: '/ebooks', label: 'E-Books', icon: BookOpen, description: 'SCERT textbooks and D.Ed/B.Ed materials.', color: 'text-yellow-500', bgColor: 'bg-yellow-50' },
+  { href: '/chatbot', label: 'AI Chat', icon: Bot, description: 'Ask "EduBot" to clarify concepts.', color: 'text-teal-500', bgColor: 'bg-teal-50' },
 ];
 
 export default function Home() {
@@ -43,8 +43,8 @@ export default function Home() {
             <Link href={link.href} key={link.href} className="group">
               <Card className="bg-card/80 border-border hover:border-primary hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 h-full transform hover:-translate-y-1">
                 <CardHeader className="flex-row items-center gap-4">
-                  <div className="p-3 bg-primary/10 rounded-lg">
-                    <link.icon className="text-primary h-6 w-6" />
+                  <div className={`p-3 ${link.bgColor} rounded-lg`}>
+                    <link.icon className={`${link.color} h-6 w-6`} />
                   </div>
                   <CardTitle className='text-xl font-headline'>{link.label}</CardTitle>
                 </CardHeader>
