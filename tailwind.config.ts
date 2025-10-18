@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
-        headline: ['Bodoni Moda', 'serif'],
+        headline: ['Poppins', 'serif'],
         code: ['monospace'],
       },
       colors: {
