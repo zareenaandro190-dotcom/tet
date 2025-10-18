@@ -1,5 +1,5 @@
 import type { Subject, Paper } from './types';
-import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap, Puzzle, Newspaper } from 'lucide-react';
+import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap, Puzzle, Newspaper, Bot } from 'lucide-react';
 
 export const subjects: Subject[] = [
   {
@@ -88,10 +88,11 @@ export const subjects: Subject[] = [
   },
   {
     id: 'gk-ca',
-    name: 'GK & Current Affairs',
+    name: 'GK &amp; Current Affairs',
     icon: Newspaper,
     lessons: [
       { id: 'ts-ca', name: 'Telangana Current Affairs' },
+      { id: 'ap-ca', name: 'Andhra Pradesh Current Affairs' },
       { id: 'india-ca', name: 'India Current Affairs' },
       { id: 'world-ca', name: 'World Current Affairs' },
       { id: 'static-gk', name: 'Static GK' },
@@ -119,10 +120,11 @@ export const subjects: Subject[] = [
   },
 ];
 
+// This is kept for legacy compatibility but is largely replaced by the new home screen.
 export const papers: Paper[] = [
     {
-        id: 'paper-1',
-        name: 'Paper 1 (Classes I-V)',
+        id: 'tet-paper-1',
+        name: 'TET Paper 1 (Classes I-V)',
         description: 'Focuses on foundational concepts for primary school teachers.',
         icon: Book,
         classes: [
@@ -134,8 +136,8 @@ export const papers: Paper[] = [
         ]
     },
     {
-        id: 'paper-2',
-        name: 'Paper 2 (Classes VI-VIII)',
+        id: 'tet-paper-2',
+        name: 'TET Paper 2 (Classes VI-VIII)',
         description: 'Covers advanced topics for upper primary and high school teachers.',
         icon: GraduationCap,
         classes: [
@@ -154,7 +156,7 @@ export const papers: Paper[] = [
     },
     {
         id: 'gk-ca',
-        name: 'GK & Current Affairs',
+        name: 'GK &amp; Current Affairs',
         description: 'Bilingual general knowledge and current events.',
         icon: Newspaper,
         classes: [],
@@ -167,5 +169,26 @@ export const papers: Paper[] = [
         icon: BrainCircuit,
         classes: [],
         subjects: subjects.filter(s => ['methodology-ded', 'methodology-bed'].includes(s.id))
+    },
+    {
+        id: 'deecet',
+        name: 'DEECET',
+        description: 'Diploma in Elementary Education Common Entrance Test.',
+        icon: Book,
+        classes: [],
+    },
+    {
+        id: 'ebooks',
+        name: 'E-Books',
+        description: 'Library of textbooks and resources.',
+        icon: BookOpen,
+        classes: [],
+    },
+    {
+        id: 'chatbot',
+        name: 'AI Chatbot',
+        description: 'Your personal AI study assistant.',
+        icon: Bot,
+        classes: [],
     }
 ]

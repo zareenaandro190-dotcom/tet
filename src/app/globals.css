@@ -8,19 +8,19 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 8%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 8%; /* Black */
+    --foreground: 150 100% 90%; /* Light Neon Green for text */
     --card: 240 5% 14%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 150 100% 90%;
     --popover: 240 5% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover-foreground: 150 100% 90%;
     --primary: 150 100% 49%; /* Neon Green #00FF99 */
     --primary-foreground: 0 0% 5%;
-    --secondary: 195 100% 50%; /* Neon Blue #00CFFF */
+    --secondary: 195 100% 50%; /* Neon Blue for accents if needed */
     --secondary-foreground: 0 0% 5%;
     --muted: 240 5% 20%;
     --muted-foreground: 240 5% 65%;
-    --accent: 195 100% 50%; /* Neon Blue */
+    --accent: 150 100% 49%; /* Neon Green for accents */
     --accent-foreground: 0 0% 5%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
@@ -34,28 +34,28 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 210 40% 98%;
+    --sidebar-foreground: 150 100% 90%;
     --sidebar-primary: 150 100% 50%;
     --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 200 100% 50%;
+    --sidebar-accent: 150 100% 49%;
     --sidebar-accent-foreground: 0 0% 5%;
     --sidebar-border: 240 5% 20%;
     --sidebar-ring: 150 100% 50%;
   }
   .dark {
     --background: 0 0% 8%;
-    --foreground: 210 40% 98%;
+    --foreground: 150 100% 90%;
     --card: 240 5% 14%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 150 100% 90%;
     --popover: 240 5% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 150 100% 49%; /* Neon Green */
+    --popover-foreground: 150 100% 90%;
+    --primary: 150 100% 49%;
     --primary-foreground: 0 0% 5%;
-    --secondary: 195 100% 50%; /* Neon Blue */
+    --secondary: 195 100% 50%;
     --secondary-foreground: 0 0% 5%;
     --muted: 240 5% 20%;
     --muted-foreground: 240 5% 65%;
-    --accent: 195 100% 50%; /* Neon Blue */
+    --accent: 150 100% 49%;
     --accent-foreground: 0 0% 5%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
@@ -68,10 +68,10 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 210 40% 98%;
+    --sidebar-foreground: 150 100% 90%;
     --sidebar-primary: 150 100% 50%;
     --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 200 100% 50%;
+    --sidebar-accent: 150 100% 49%;
     --sidebar-accent-foreground: 0 0% 5%;
     --sidebar-border: 240 5% 20%;
     --sidebar-ring: 150 100% 50%;
