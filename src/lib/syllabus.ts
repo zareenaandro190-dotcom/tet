@@ -1,5 +1,5 @@
 import type { Subject, Paper } from './types';
-import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap, Puzzle, Newspaper, Bot } from 'lucide-react';
+import { BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit, Book, GraduationCap, Puzzle, Newspaper, Bot, BookOpen } from 'lucide-react';
 
 export const subjects: Subject[] = [
   {
