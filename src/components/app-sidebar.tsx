@@ -3,7 +3,7 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Home, BookOpen, Bot, User, Settings, LogOut, Search, TrendingUp, Calendar } from 'lucide-react';
+import { Home, BookOpen, Bot, User, Settings, LogOut, Search, TrendingUp, Calendar, Layers } from 'lucide-react';
 
 import {
   SidebarHeader,
@@ -32,6 +32,7 @@ const menuItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/ebooks', label: 'E-Books', icon: BookOpen },
   { href: '/subjects', label: 'Subjects', icon: BookOpen },
+  { href: '/flashcards', label: 'Flashcards', icon: Layers },
   { href: '/progress', label: 'My Progress', icon: TrendingUp },
   { href: '/schedule', label: 'Schedule', icon: Calendar },
   { href: '/chatbot', label: 'AI Chat', icon: Bot },
