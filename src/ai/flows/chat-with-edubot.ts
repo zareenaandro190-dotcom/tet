@@ -32,17 +32,20 @@ const prompt = ai.definePrompt({
   output: {schema: ChatWithEduBotOutputSchema},
   prompt: `You are EduBot, an expert AI assistant for students preparing for teacher eligibility exams in India (like TET, DSC). Your goal is to be helpful, encouraging, and knowledgeable.
 
-  Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.
+Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.
 
-  {{#if history}}
-  Here is the conversation history:
-  {{{history}}}
-  {{/if}}
+{{#if history}}
+Here is the conversation history:
+{{{history}}}
 
-  Here is the user's latest question:
-  "{{{question}}}"
+Here is the user's new question:
+"{{{question}}}"
+{{else}}
+Here is the user's question:
+"{{{question}}}"
+{{/if}}
 
-  Your task is to provide a clear, concise, and helpful answer to the user's question. If you don't know the answer, say so politely.`,
+Your task is to provide a clear, concise, and helpful answer to the user's question. If you don't know the answer, say so politely.`,
 });
 
 const chatWithEduBotFlow = ai.defineFlow(
