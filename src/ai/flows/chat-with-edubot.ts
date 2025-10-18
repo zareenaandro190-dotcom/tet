@@ -29,7 +29,7 @@ export async function chatWithEduBot(input: ChatWithEduBotInput): Promise<ChatWi
 const prompt = ai.definePrompt({
   name: 'chatWithEduBotPrompt',
   input: {schema: ChatWithEduBotInputSchema},
-  output: {schema: ChatWithPuppyOutputSchema},
+  output: {schema: ChatWithEduBotOutputSchema},
   prompt: `You are EduBot, an expert AI assistant for students preparing for teacher eligibility exams in India (like TET, DSC). Your goal is to be helpful, encouraging, and knowledgeable.
 
   Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.
