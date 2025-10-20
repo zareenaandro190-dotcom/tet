@@ -65,18 +65,18 @@ export default function Home() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors">
-              <h3 className="font-semibold text-lg text-foreground/90">DSC 2024 Notification Released!</h3>
-              <p className="text-muted-foreground text-sm">Application window opens from Oct 28 to Nov 15. Click to view details.</p>
-              <span className="text-xs text-secondary font-medium mt-2 inline-block">EXAM UPDATE</span>
+              <h3 className="font-semibold text-lg text-foreground/90">New Feature: Interactive Flashcards!</h3>
+              <p className="text-muted-foreground text-sm">Flip through our new colorful, subject-coded flashcards to make learning fun. Check them out now!</p>
+              <span className="text-xs text-secondary font-medium mt-2 inline-block">NEW FEATURE</span>
             </div>
             <div className="p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors">
-              <h3 className="font-semibold text-lg text-foreground/90">New: Child Development Chapter 5 MCQs</h3>
-              <p className="text-muted-foreground text-sm">50 new practice questions on "Piaget's Cognitive Development" have been added.</p>
-              <span className="text-xs text-secondary font-medium mt-2 inline-block">NEW MATERIAL</span>
+              <h3 className="font-semibold text-lg text-foreground/90">Ask EduBot Anything!</h3>
+              <p className="text-muted-foreground text-sm">Stuck on a concept? Our AI assistant, EduBot, is here to help you with instant explanations. Try it today!</p>
+              <span className="text-xs text-secondary font-medium mt-2 inline-block">AI ASSISTANT</span>
             </div>
              <div className="p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors">
-              <h3 className="font-semibold text-lg text-foreground/90">Study Tip of the Day</h3>
-              <p className="text-muted-foreground text-sm">Use the Pomodoro Technique: 25 minutes of focused study followed by a 5-minute break to maximize retention.</p>
+              <h3 className="font-semibold text-lg text-foreground/90">Weekly Goal Reminder</h3>
+              <p className="text-muted-foreground text-sm">Don't forget to set your weekly study goals in the 'Schedule' section to stay on track for your exams.</p>
               <span className="text-xs text-secondary font-medium mt-2 inline-block">TIP</span>
             </div>
           </CardContent>
