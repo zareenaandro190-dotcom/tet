@@ -2,30 +2,19 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BookOpen, Download, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
-const telanganaBooks = [
-    { title: 'D.El.Ed First Year - CDP', description: 'Child Development and Pedagogy for D.El.Ed.', source: 'SCERT, Telangana' },
-    { title: 'Class X - Social Studies', description: 'Official SCERT textbook for Class 10.', source: 'SCERT, Telangana' },
-    { title: 'B.Ed Perspectives in Education', description: 'Foundational course book for B.Ed programs.', source: 'Telugu Akademi' },
-    { title: 'Class VI - Science', description: 'Official SCERT textbook for Class 6.', source: 'SCERT, Telangana' },
-];
-
-const andhraPradeshBooks = [
-    { title: 'D.El.Ed First Year - English', description: 'English Methodology and Content for D.El.Ed.', source: 'SCERT, Andhra Pradesh' },
-    { title: 'Class IX - Mathematics', description: 'Official SCERT textbook for Class 9.', source: 'SCERT, Andhra Pradesh' },
-    { title: 'B.Ed Assessment for Learning', description: 'Core textbook for B.Ed students.', source: 'AP Universities' },
-    { title: 'Class VII - EVS', description: 'Environmental Studies textbook for Class 7.', source: 'SCERT, Andhra Pradesh' },
-];
+import { ebooks } from '@/lib/ebooks';
+import type { EBook } from '@/lib/ebooks';
 
 export default function EbooksPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filterBooks = (books: typeof telanganaBooks) => {
+  const filterBooks = (books: EBook[]) => {
     if (!searchTerm) return books;
     return books.filter(book => 
       book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -33,8 +22,42 @@ export default function EbooksPage() {
     );
   };
 
+  const telanganaBooks = ebooks.filter(book => book.state === 'telangana');
+  const andhraPradeshBooks = ebooks.filter(book => book.state === 'andhra-pradesh');
+
   const filteredTelanganaBooks = filterBooks(telanganaBooks);
   const filteredAndhraPradeshBooks = filterBooks(andhraPradeshBooks);
+
+  const renderBookList = (bookList: EBook[]) => {
+    if (bookList.length === 0) {
+      return (
+        <div className="text-center py-12 text-muted-foreground">
+          <p>No eBooks found matching your search.</p>
+        </div>
+      );
+    }
+    return (
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {bookList.map((book) => (
+            <Card key={book.id} className='flex flex-col'>
+                <CardHeader>
+                    <CardTitle>{book.title}</CardTitle>
+                    <CardDescription>{book.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow flex flex-col justify-end">
+                    <p className="text-xs text-muted-foreground mb-4">Source: {book.source}</p>
+                    <a href={book.pdf_url} download={`${book.title.replace(/\s/g, '_')}.pdf`} target="_blank" rel="noopener noreferrer">
+                        <Button className="w-full">
+                            <Download className="mr-2 h-4 w-4" />
+                            Download PDF
+                        </Button>
+                    </a>
+                </CardContent>
+            </Card>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="p-4 sm:p-6 md:p-8">
@@ -64,52 +87,10 @@ export default function EbooksPage() {
           <TabsTrigger value="andhra-pradesh">Andhra Pradesh</TabsTrigger>
         </TabsList>
         <TabsContent value="telangana" className="mt-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredTelanganaBooks.map((book, index) => (
-                    <Card key={index} className='flex flex-col'>
-                        <CardHeader>
-                            <CardTitle>{book.title}</CardTitle>
-                            <CardDescription>{book.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex-grow flex flex-col justify-end">
-                            <p className="text-xs text-muted-foreground mb-4">Source: {book.source}</p>
-                            <Button>
-                                <Download className="mr-2 h-4 w-4" />
-                                Download PDF
-                            </Button>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-             {filteredTelanganaBooks.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
-                <p>No eBooks found matching your search.</p>
-              </div>
-            )}
+            {renderBookList(filteredTelanganaBooks)}
         </TabsContent>
         <TabsContent value="andhra-pradesh" className="mt-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredAndhraPradeshBooks.map((book, index) => (
-                    <Card key={index} className='flex flex-col'>
-                        <CardHeader>
-                            <CardTitle>{book.title}</CardTitle>
-                            <CardDescription>{book.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex-grow flex flex-col justify-end">
-                            <p className="text-xs text-muted-foreground mb-4">Source: {book.source}</p>
-                            <Button>
-                                <Download className="mr-2 h-4 w-4" />
-                                Download PDF
-                            </Button>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-             {filteredAndhraPradeshBooks.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
-                <p>No eBooks found matching your search.</p>
-              </div>
-            )}
+            {renderBookList(filteredAndhraPradeshBooks)}
         </TabsContent>
       </Tabs>
     </div>
