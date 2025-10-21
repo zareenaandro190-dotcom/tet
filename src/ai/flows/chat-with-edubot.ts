@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -14,6 +15,12 @@ import {z} from 'genkit';
 const ChatWithEduBotInputSchema = z.object({
   history: z.string().optional().describe('The chat history so far.'),
   question: z.string().describe("The user's latest question."),
+  photoDataUri: z
+    .string()
+    .optional()
+    .describe(
+      "An optional photo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
 });
 export type ChatWithEduBotInput = z.infer<typeof ChatWithEduBotInputSchema>;
 
@@ -33,26 +40,30 @@ const chatWithEduBotFlow = ai.defineFlow(
     outputSchema: ChatWithEduBotOutputSchema,
   },
   async input => {
-    let promptText = `You are EduBot, an expert AI assistant for students preparing for teacher eligibility exams in India (like TET, DSC). Your goal is to be helpful, encouraging, and knowledgeable.
+    let prompt: any[] = [{text: `You are EduBot, an expert AI assistant for students preparing for teacher eligibility exams in India (like TET, DSC). Your goal is to be helpful, encouraging, and knowledgeable.
 
-Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.`;
+Your knowledge base is the syllabus for TET, DSC, SGT, and SA exams in Telangana and Andhra Pradesh.`}];
 
     if (input.history && input.history.trim() !== '') {
-      promptText += `
+      prompt.push({text: `
 
 Here is the conversation history:
-${input.history}`;
+${input.history}`});
+    }
+    
+    if (input.photoDataUri) {
+        prompt.push({media: {url: input.photoDataUri}});
     }
 
-    promptText += `
+    prompt.push({text: `
 
 Here is the user's new question:
 "${input.question}"
 
-Your task is to provide a clear, concise, and helpful answer to the user's question. If you don't know the answer, say so politely.`;
+Your task is to provide a clear, concise, and helpful answer to the user's question. If you don't know the answer, say so politely.`});
 
     const { output } = await ai.generate({
-      prompt: promptText,
+      prompt: prompt,
       output: { schema: ChatWithEduBotOutputSchema },
     });
 

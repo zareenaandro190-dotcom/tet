@@ -1,14 +1,16 @@
+
 'use client';
 
-import { useState } from 'react';
-import { Bot, User, Send, Loader2, BrainCircuit } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useRef } from 'react';
+import { Bot, User, Send, Loader2, BrainCircuit, Paperclip, X } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { chatWithEduBot } from '@/ai/flows/chat-with-edubot';
+import { Badge } from '@/components/ui/badge';
 
 type Message = {
   id: string;
@@ -20,24 +22,52 @@ export default function ChatbotPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+    }
+  };
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if ((!input.trim() && !file) || isLoading) return;
 
-    const userMessage: Message = { id: `user-${Date.now()}`, text: input, role: 'user' };
+    const userMessageText = input;
+    const userMessage: Message = { id: `user-${Date.now()}`, text: userMessageText, role: 'user' };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
-    try {
-      // For now, we pass the conversation history as a simple string.
-      // A more advanced implementation would handle a structured history.
+    let fileDataUri: string | undefined = undefined;
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        fileDataUri = reader.result as string;
+        await getBotReply(userMessageText, fileDataUri);
+      };
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+        handleError();
+        setIsLoading(false);
+      }
+      setFile(null);
+    } else {
+      await getBotReply(userMessageText);
+    }
+  };
+  
+  const getBotReply = async (question: string, photoDataUri?: string) => {
+     try {
       const history = messages.map(m => `${m.role}: ${m.text}`).join('\n');
       
       const result = await chatWithEduBot({
         history: history,
-        question: input,
+        question: question,
+        photoDataUri: photoDataUri
       });
       
       const botMessage: Message = { id: `bot-${Date.now()}`, text: result.reply, role: 'bot' };
@@ -45,16 +75,20 @@ export default function ChatbotPage() {
 
     } catch (error) {
       console.error("Failed to get response from EduBot:", error);
-      const errorMessage: Message = { 
+      handleError();
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const handleError = () => {
+     const errorMessage: Message = { 
         id: `bot-error-${Date.now()}`, 
         text: "Sorry, I'm having trouble connecting right now. Please try again later.",
         role: 'bot' 
       };
       setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }
 
   return (
     <div className="p-4 sm:p-6 md:p-8 h-[calc(100vh-4rem)] flex flex-col">
@@ -121,7 +155,34 @@ export default function ChatbotPage() {
                 </div>
             </ScrollArea>
             <div className="p-4 border-t">
+                {file && (
+                    <div className="mb-2 flex items-center justify-between">
+                        <Badge variant="secondary">
+                            {file.name}
+                            <Button variant="ghost" size="icon" className="h-5 w-5 ml-2" onClick={() => setFile(null)}>
+                                <X className="h-3 w-3" />
+                            </Button>
+                        </Badge>
+                    </div>
+                )}
                 <form onSubmit={handleSendMessage} className="flex items-center gap-3">
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="hidden"
+                    accept="image/*"
+                />
+                <Button 
+                    type="button" 
+                    variant="outline" 
+                    size="icon" 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isLoading}
+                >
+                    <Paperclip className="h-4 w-4" />
+                    <span className="sr-only">Attach file</span>
+                </Button>
                 <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -130,7 +191,7 @@ export default function ChatbotPage() {
                     disabled={isLoading}
                     autoComplete="off"
                 />
-                <Button type="submit" disabled={isLoading || !input.trim()}>
+                <Button type="submit" disabled={isLoading || (!input.trim() && !file)}>
                     {isLoading ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                     ) : (
