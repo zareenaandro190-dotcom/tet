@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-const GenerateMCQQuizzesInputSchema = z.object({
+export const GenerateMCQQuizzesInputSchema = z.object({
   subject: z.string().describe('The subject for which to generate MCQs.'),
   lesson: z.string().describe('The lesson for which to generate MCQs.'),
   numQuestions: z.number().default(10).describe('The number of MCQs to generate.'),
@@ -25,7 +25,7 @@ const LanguageVersionSchema = z.object({
   explanation: z.string().describe('A clear explanation for the correct answer in this language.'),
 });
 
-const GenerateMCQQuizzesOutputSchema = z.object({
+export const GenerateMCQQuizzesOutputSchema = z.object({
   mcqs: z.array(
     z.object({
       id: z.string().describe('A unique identifier for the question (e.g., "pedagogy-001").'),
@@ -41,8 +41,8 @@ const GenerateMCQQuizzesOutputSchema = z.object({
 });
 export type GenerateMCQQuizzesOutput = z.infer<typeof GenerateMCQQuizzesOutputSchema>;
 
-export async function generateMCQQuizzes(input: GenerateMCQQuizzesInput): Promise<GenerateMCQQuizzesOutput> {
-  return generateMCQQuizzesFlow(input);
+export async function generateMCQQuizzes(input: GenerateMCQQuizzesInput) {
+  return generateMCQQuizzesFlow.run(input);
 }
 
 const generateMCQPrompt = ai.definePrompt({
@@ -76,3 +76,17 @@ const generateMCQQuizzesFlow = ai.defineFlow(
     return output!;
   }
 );
+
+export async function checkMCQGeneration(operationName: string) {
+  const op = await ai.checkOperation<typeof generateMCQQuizzesFlow>(operationName);
+  if (!op.done) {
+    return { done: false };
+  }
+  if (op.error) {
+    throw op.error;
+  }
+  return {
+    done: true,
+    result: op.output,
+  };
+}
