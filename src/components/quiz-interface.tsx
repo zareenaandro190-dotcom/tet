@@ -35,7 +35,9 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
     setStartTime(Date.now());
   }, []);
 
-  const currentQuestion = quiz.mcqs[currentQuestionIndex];
+  const currentMCQ = quiz.mcqs[currentQuestionIndex];
+  // For now, we default to English. Later we can add a language selector.
+  const currentQuestion = currentMCQ.language_versions.english;
   const progress = ((currentQuestionIndex + 1) / quiz.mcqs.length) * 100;
   
   const handleOptionSelect = (option: string) => {

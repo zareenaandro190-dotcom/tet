@@ -113,6 +113,7 @@ export default function QuizResults() {
               {mcqs.map((mcq, index) => {
                 const userAnswer = userAnswers.find(ua => ua.questionIndex === index);
                 const isCorrect = userAnswer?.isCorrect;
+                const questionContent = mcq.language_versions.english; // Default to English
                 return (
                   <AccordionItem value={`item-${index}`} key={index}>
                     <AccordionTrigger className={cn(
@@ -123,14 +124,14 @@ export default function QuizResults() {
                         <div className="flex items-center gap-2">
                             {isCorrect === true && <Check className="h-5 w-5" />}
                             {isCorrect === false && <X className="h-5 w-5" />}
-                            <span>Q{index + 1}: {mcq.question}</span>
+                            <span>Q{index + 1}: {questionContent.question}</span>
                         </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-2 pl-8">
-                        {mcq.options.map(opt => {
+                        {questionContent.options.map(opt => {
                             const isUserAnswer = userAnswer?.selectedOption === opt;
-                            const isCorrectAnswer = mcq.correct_answer === opt;
+                            const isCorrectAnswer = questionContent.correct_answer === opt;
                             return (
                                 <p key={opt} className={cn(
                                     "p-2 rounded-md",
@@ -144,7 +145,7 @@ export default function QuizResults() {
                       </div>
                       <Alert className="mt-4 ml-8">
                           <AlertTitle>Explanation</AlertTitle>
-                          <AlertDescription>{mcq.explanation}</AlertDescription>
+                          <AlertDescription>{questionContent.explanation}</AlertDescription>
                       </Alert>
                     </AccordionContent>
                   </AccordionItem>
