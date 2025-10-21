@@ -9,13 +9,13 @@ body {
 
 @layer base {
   :root {
-    --background: 177 30% 95%; /* Light cyan-green */
+    --background: 180 50% 97%; /* Lighter cyan-green */
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100% / 0.9;
+    --card: 0 0% 100% / 0.8; /* Semi-transparent white */
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 177 100% 29%; /* #009688 */
+    --primary: 177 100% 29%; /* Teal */
     --primary-foreground: 0 0% 98%;
     --secondary: 176 37% 70%; /* Lighter shade #97CABE */
     --secondary-foreground: 240 5.9% 10%;
@@ -36,7 +36,7 @@ body {
     --radius: 0.5rem;
     
     /* Sidebar specific vars */
-    --sidebar-background: 177 30% 95%;
+    --sidebar-background: 180 50% 97%;
     --sidebar-foreground: 240 10% 3.9%;
     --sidebar-border: 177 15% 85%;
     --sidebar-accent: 177 40% 88%;
@@ -44,6 +44,7 @@ body {
     --sidebar-ring: 177 100% 29%;
   }
 }
+
 
 @layer base {
   * {
