@@ -19,9 +19,11 @@ const initialFlashcardData = [
 export default function FlashcardsPage() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [flashcardData, setFlashcardData] = useState(initialFlashcardData);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        // Shuffle the array on client-side mount to ensure new order on each visit
+        // This ensures shuffling only happens on the client, after hydration
+        setIsClient(true);
         const shuffledData = [...initialFlashcardData].sort(() => Math.random() - 0.5);
         setFlashcardData(shuffledData);
     }, []);
@@ -33,6 +35,21 @@ export default function FlashcardsPage() {
     const goToNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex === flashcardData.length - 1 ? 0 : prevIndex + 1));
     };
+
+    if (!isClient) {
+        // Render a loading state or the unshuffled cards on the server to avoid mismatch
+        return (
+             <div className="p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
+                <header className="mb-8 text-center">
+                    <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary flex items-center gap-3 justify-center">
+                        <Layers className="h-8 w-8" />
+                        Flashcards
+                    </h1>
+                    <p className="text-muted-foreground mt-2">Shuffling cards...</p>
+                </header>
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
@@ -52,7 +69,7 @@ export default function FlashcardsPage() {
                 <div className="relative w-full h-[400px] perspective-1000">
                     {flashcardData.map((card, index) => (
                         <div
-                            key={index}
+                            key={card.question}
                             className="absolute w-full h-full transition-transform duration-700 ease-in-out"
                             style={{
                                 transform: `translateX(${(index - currentIndex) * 100}%) rotateY(${(index - currentIndex) * -30}deg) scale(${index === currentIndex ? 1 : 0.8})`,
