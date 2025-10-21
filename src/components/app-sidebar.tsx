@@ -45,7 +45,9 @@ export function AppSidebar() {
     const isCollapsed = state === 'collapsed';
 
     const handleLinkClick = () => {
-        setOpenMobile(false);
+        if (setOpenMobile) {
+            setOpenMobile(false);
+        }
     }
 
   return (
@@ -87,7 +89,7 @@ export function AppSidebar() {
                 `w-full justify-start items-center gap-2 p-2 ${isCollapsed ? 'justify-center' : ''}`
             }>
                 <Avatar className="size-8">
-                    <AvatarImage src="https://picsum.photos/seed/avatar/100/100" />
+                    <AvatarImage src="https://picsum.photos/seed/1/100/100" />
                     <AvatarFallback>U</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col items-start group-data-[collapsible=icon]:hidden">

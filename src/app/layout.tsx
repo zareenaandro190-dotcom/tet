@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { Toaster } from "@/components/ui/toaster";
 
@@ -29,6 +29,9 @@ export default function RootLayout({
                 <AppSidebar />
             </Sidebar>
             <SidebarInset>
+                <div className="p-2 md:hidden">
+                    <SidebarTrigger />
+                </div>
                 {children}
             </SidebarInset>
         </SidebarProvider>
