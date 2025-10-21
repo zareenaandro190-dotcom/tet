@@ -9,9 +9,9 @@ body {
 
 @layer base {
   :root {
-    --background: 240 10% 99%; /* Very light grey */
+    --background: 177 30% 95%; /* Light cyan-green */
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100% / 0.95; /* Slightly more opaque for better contrast */
+    --card: 0 0% 100% / 0.9;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
@@ -36,10 +36,10 @@ body {
     --radius: 0.5rem;
     
     /* Sidebar specific vars */
-    --sidebar-background: 0 0% 100%;
+    --sidebar-background: 177 30% 95%;
     --sidebar-foreground: 240 10% 3.9%;
     --sidebar-border: 177 15% 85%;
-    --sidebar-accent: 177 30% 90%;
+    --sidebar-accent: 177 40% 88%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-ring: 177 100% 29%;
   }

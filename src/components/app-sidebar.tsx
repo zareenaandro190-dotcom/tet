@@ -15,7 +15,6 @@ import {
   SidebarFooter,
   SidebarSeparator,
   useSidebar,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { AppLogo } from '@/components/app-logo';
 import { Button } from '@/components/ui/button';
@@ -59,8 +58,6 @@ export function AppSidebar() {
             <span className="text-lg font-semibold font-headline group-data-[collapsible=icon]:hidden">
                 EduSpark
             </span>
-            <div className="flex-1" />
-            <SidebarTrigger className="hidden" />
         </div>
       </SidebarHeader>
 
