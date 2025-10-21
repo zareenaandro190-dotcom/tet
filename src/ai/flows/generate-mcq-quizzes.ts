@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const GenerateMCQQuizzesInputSchema = z.object({
+const GenerateMCQQuizzesInputSchema = z.object({
   subject: z.string().describe('The subject for which to generate MCQs.'),
   lesson: z.string().describe('The lesson for which to generate MCQs.'),
   numQuestions: z.number().default(10).describe('The number of MCQs to generate.'),
@@ -25,7 +25,7 @@ const LanguageVersionSchema = z.object({
   explanation: z.string().describe('A clear explanation for the correct answer in this language.'),
 });
 
-export const GenerateMCQQuizzesOutputSchema = z.object({
+const GenerateMCQQuizzesOutputSchema = z.object({
   mcqs: z.array(
     z.object({
       id: z.string().describe('A unique identifier for the question (e.g., "pedagogy-001").'),
