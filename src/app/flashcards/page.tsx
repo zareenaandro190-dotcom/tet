@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layers, ArrowLeft, ArrowRight, BookText, Languages, Calculator, FlaskConical, Globe, BrainCircuit } from 'lucide-react';
 import Flashcard from '@/components/flashcard';
 import { Button } from '@/components/ui/button';
 
-const flashcardData = [
+const initialFlashcardData = [
   { subject: 'English', question: "What are the three main types of tenses?", answer: "Past, Present, and Future.", icon: Languages, color: 'bg-[#FF9A8B] text-gray-800' },
   { subject: 'Telugu', question: "'అమ్మ' పదం యొక్క అర్థం ఏమిటి?", answer: "తల్లి, జనని", icon: BookText, color: 'bg-[#FBC2EB] text-gray-800' },
   { subject: 'Maths', question: "What is the formula for the area of a circle?", answer: "A = πr²", icon: Calculator, color: 'bg-[#A1C4FD] text-gray-800' },
@@ -18,6 +18,13 @@ const flashcardData = [
 
 export default function FlashcardsPage() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [flashcardData, setFlashcardData] = useState(initialFlashcardData);
+
+    useEffect(() => {
+        // Shuffle the array on client-side mount to ensure new order on each visit
+        const shuffledData = [...initialFlashcardData].sort(() => Math.random() - 0.5);
+        setFlashcardData(shuffledData);
+    }, []);
 
     const goToPrevious = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? flashcardData.length - 1 : prevIndex - 1));
