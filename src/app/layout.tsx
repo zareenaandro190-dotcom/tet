@@ -25,15 +25,17 @@ export default function RootLayout({
       </head>
       <body className={cn('font-body antialiased min-h-screen')}>
         <SidebarProvider>
-            <Sidebar>
-                <AppSidebar />
-            </Sidebar>
-            <SidebarInset>
-                <div className="md:hidden p-2 flex items-center">
-                    <SidebarTrigger />
-                </div>
-                {children}
-            </SidebarInset>
+          <Sidebar>
+            <AppSidebar />
+          </Sidebar>
+          <SidebarInset>
+            <header className="md:hidden p-2 flex items-center">
+              <SidebarTrigger />
+            </header>
+            <main>
+              {children}
+            </main>
+          </SidebarInset>
         </SidebarProvider>
         <Toaster />
       </body>
