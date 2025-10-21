@@ -159,7 +159,7 @@ export default function QuizResults() {
             <Link href={`/quiz?subject=${getSubjectId(results.subject)}&lesson=${getLessonId(results.lesson)}`}>
                 <Button variant="outline"><Repeat className="mr-2 h-4 w-4" /> Try Again</Button>
             </Link>
-            <Link href="/subjects">
+            <Link href={`/subjects/${getSubjectId(results.subject)}`}>
                 <Button variant="outline"><ArrowLeft className="mr-2 h-4 w-4" /> Choose Another Lesson</Button>
             </Link>
             <Link href="/">
