@@ -180,7 +180,7 @@ export const ebooks: EBook[] = [
         class: 'Class 8',
         course: 'B.Ed / DSC',
         exam_type: 'DSC',
-        state: 'andhra_pradesh',
+        state: 'andhra-pradesh',
         language: 'English',
         pdf_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         source: 'SCERT, Andhra Pradesh',
