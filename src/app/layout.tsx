@@ -29,7 +29,7 @@ export default function RootLayout({
                 <AppSidebar />
             </Sidebar>
             <SidebarInset>
-                <div className="p-2 md:hidden">
+                <div className="md:hidden p-2 flex items-center">
                     <SidebarTrigger />
                 </div>
                 {children}

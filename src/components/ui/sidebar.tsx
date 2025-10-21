@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -168,7 +169,7 @@ const Sidebar = React.forwardRef<
     {
       side = "left",
       variant = "sidebar",
-      collapsible = "offcanvas",
+      collapsible = "icon", // Changed default to 'icon' to prevent offcanvas as default
       className,
       children,
       ...props
@@ -226,6 +227,7 @@ const Sidebar = React.forwardRef<
           className={cn(
             "duration-200 relative h-svh bg-transparent transition-[width] ease-linear",
             "group-data-[collapsible=offcanvas]:w-0",
+            "group-data-[state=expanded]:w-[--sidebar-width]",
             "group-data-[side=right]:rotate-180",
             variant === "floating" || variant === "inset"
               ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
