@@ -18,7 +18,8 @@ export default function EbooksPage() {
     if (!searchTerm) return books;
     return books.filter(book => 
       book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.description.toLowerCase().includes(searchTerm.toLowerCase())
+      book.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.subject.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
@@ -42,11 +43,11 @@ export default function EbooksPage() {
             <Card key={book.id} className='flex flex-col'>
                 <CardHeader>
                     <CardTitle>{book.title}</CardTitle>
-                    <CardDescription>{book.description}</CardDescription>
+                    <CardDescription>{book.class} - {book.subject}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow flex flex-col justify-end">
-                    <p className="text-xs text-muted-foreground mb-4">Source: {book.source}</p>
-                    <a href={book.pdf_url} download={`${book.title.replace(/\s/g, '_')}.pdf`} target="_blank" rel="noopener noreferrer">
+                    <p className="text-xs text-muted-foreground mb-4">Language: {book.language}</p>
+                    <a href={book.pdf_url} download target="_blank" rel="noopener noreferrer">
                         <Button className="w-full">
                             <Download className="mr-2 h-4 w-4" />
                             Download PDF
