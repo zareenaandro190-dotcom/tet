@@ -13,10 +13,13 @@ import { explainAnswer } from '@/ai/flows/explain-answer';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from './ui/skeleton';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 type QuizInterfaceProps = {
   quiz: Quiz;
 };
+
+type Language = 'english' | 'telugu' | 'urdu';
 
 export default function QuizInterface({ quiz }: QuizInterfaceProps) {
   const router = useRouter();
@@ -27,6 +30,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
   const [showFeedback, setShowFeedback] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [quizHistory, setQuizHistory] = useLocalStorage<QuizResult[]>('quizHistory', []);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>('english');
 
   const [detailedExplanation, setDetailedExplanation] = useState<string | null>(null);
   const [isExplanationLoading, setIsExplanationLoading] = useState(false);
@@ -36,8 +40,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
   }, []);
 
   const currentMCQ = quiz.mcqs[currentQuestionIndex];
-  // For now, we default to English. Later we can add a language selector.
-  const currentQuestion = currentMCQ.language_versions.english;
+  const currentQuestion = currentMCQ.language_versions[selectedLanguage] || currentMCQ.language_versions.english;
   const progress = ((currentQuestionIndex + 1) / quiz.mcqs.length) * 100;
   
   const handleOptionSelect = (option: string) => {
@@ -112,9 +115,20 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
   return (
     <Card className="max-w-4xl mx-auto">
       <CardHeader>
-        <Progress value={progress} className="mb-4" />
-        <CardTitle className="font-headline text-2xl">{quiz.subject}</CardTitle>
-        <CardDescription>Lesson: {quiz.lesson} - Question {currentQuestionIndex + 1} of {quiz.mcqs.length}</CardDescription>
+         <div className="flex justify-between items-center mb-4">
+            <div>
+                <CardTitle className="font-headline text-2xl">{quiz.subject}</CardTitle>
+                <CardDescription>Lesson: {quiz.lesson} - Question {currentQuestionIndex + 1} of {quiz.mcqs.length}</CardDescription>
+            </div>
+            <Tabs defaultValue="english" value={selectedLanguage} onValueChange={(value) => setSelectedLanguage(value as Language)} className="w-auto">
+              <TabsList>
+                <TabsTrigger value="english">English</TabsTrigger>
+                <TabsTrigger value="telugu">తెలుగు</TabsTrigger>
+                <TabsTrigger value="urdu">اردو</TabsTrigger>
+              </TabsList>
+            </Tabs>
+        </div>
+        <Progress value={progress} />
       </CardHeader>
       <CardContent className="space-y-6">
         <p className="text-lg font-semibold">{currentQuestion.question}</p>
@@ -152,7 +166,7 @@ export default function QuizInterface({ quiz }: QuizInterfaceProps) {
           })}
         </div>
         {showFeedback && (
-          <Alert variant={isCorrect ? 'default' : 'destructive'} className={isCorrect ? 'bg-green-100 dark:bg-green-900/30 border-green-400 dark:border-green-700' : ''}>
+          <Alert variant={isCorrect ? 'default' : 'destructive'} className={isCorrect ? 'bg-green-100 border-green-400' : ''}>
             {isCorrect ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
             <AlertTitle>{isCorrect ? 'Correct!' : 'Incorrect'}</AlertTitle>
             <AlertDescription>

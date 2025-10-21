@@ -113,13 +113,14 @@ export default function QuizResults() {
               {mcqs.map((mcq, index) => {
                 const userAnswer = userAnswers.find(ua => ua.questionIndex === index);
                 const isCorrect = userAnswer?.isCorrect;
-                const questionContent = mcq.language_versions.english; // Default to English
+                // Default to English for review. A language switcher could be added here too.
+                const questionContent = mcq.language_versions.english; 
                 return (
                   <AccordionItem value={`item-${index}`} key={index}>
                     <AccordionTrigger className={cn(
                         "text-left",
-                        isCorrect === true && "text-green-600 dark:text-green-400",
-                        isCorrect === false && "text-red-600 dark:text-red-400"
+                        isCorrect === true && "text-green-600",
+                        isCorrect === false && "text-red-600"
                     )}>
                         <div className="flex items-center gap-2">
                             {isCorrect === true && <Check className="h-5 w-5" />}
@@ -135,8 +136,8 @@ export default function QuizResults() {
                             return (
                                 <p key={opt} className={cn(
                                     "p-2 rounded-md",
-                                    isCorrectAnswer && "bg-green-100 dark:bg-green-900/30 font-semibold",
-                                    isUserAnswer && !isCorrectAnswer && "bg-red-100 dark:bg-red-900/30"
+                                    isCorrectAnswer && "bg-green-100 font-semibold",
+                                    isUserAnswer && !isCorrectAnswer && "bg-red-100"
                                 )}>
                                     {opt}
                                 </p>
