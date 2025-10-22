@@ -4,6 +4,7 @@
  * @fileOverview Generates multiple-choice questions (MCQs) for a given subject and lesson in multiple languages.
  *
  * - generateMCQQuizzes - A function that generates MCQs.
+ * - checkMCQGeneration - A function to poll the status of MCQ generation.
  * - GenerateMCQQuizzesInput - The input type for the generateMCQQuizzes function.
  * - GenerateMCQQuizzesOutput - The return type for the generateMCQQuizzes function.
  */
@@ -42,7 +43,10 @@ const GenerateMCQQuizzesOutputSchema = z.object({
 export type GenerateMCQQuizzesOutput = z.infer<typeof GenerateMCQQuizzesOutputSchema>;
 
 export async function generateMCQQuizzes(input: GenerateMCQQuizzesInput) {
-  return generateMCQQuizzesFlow.run(input);
+  // Start the flow but don't wait for it to finish.
+  // Return the operation name to the client so it can poll for status.
+  const op = await generateMCQQuizzesFlow.run(input);
+  return { name: op.name };
 }
 
 const generateMCQPrompt = ai.definePrompt({
